@@ -1,0 +1,9 @@
+node_modules/
+out/
+.DS_Store
+*.log
+__pycache__/
+*.pyc
+.venv/
+# 用户跑 skill 时生成的临时效果图，不该进仓库
+previews-tmp/

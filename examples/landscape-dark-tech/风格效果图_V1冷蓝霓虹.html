@@ -1,0 +1,143 @@
+<!--
+══════════════════════════════════════════════════════════
+V1 · 冷蓝霓虹（暗色科技 · 极客冷调）· 设计参数
+──────────────────────────────────────────────────────────
+画幅        1920×1080 横屏（B站）
+主背景      #0a0e14
+面板底      rgba(13,20,28,0.80)
+主色        #3fa9ff (RGB 63,169,255) / 辅助 #7fd0ff
+文字        #f2f6fa / 次级 #cfe6ff / 弱字(仅卡内) #8a93a3
+边框        1px rgba(63,169,255,0.35)
+圆角        卡 20px / 面板 18px / 角落人脸圆框 直径 300px
+发光        0 0 36px rgba(63,169,255,0.35)
+字号        钩子大字 110/900 · 卡片标题 38/800 · 字幕 44/700
+字幕安全区  底部 84px
+──────────────────────────────────────────────────────────
+选定后以上参数直接搬进 theme.ts
+══════════════════════════════════════════════════════════
+-->
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>V1 冷蓝霓虹 · 效果图</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  :root{
+    --bg:#0a0e14;
+    --face1:#1c2836; --face2:#0d141c;
+    --panel:rgba(13,20,28,0.80);
+    --border:rgba(63,169,255,0.35);
+    --accent:#3fa9ff; --accent2:#7fd0ff;
+    --text:#f2f6fa; --sub:#cfe6ff; --dim:#8a93a3;
+    --glow:0 0 36px rgba(63,169,255,0.35);
+    --rCard:20px; --rPanel:18px;
+  }
+  body{
+    background:#17181c;
+    font-family:"Source Han Sans SC","Noto Sans SC","PingFang SC","Microsoft YaHei",sans-serif;
+    padding:48px;
+  }
+  .tag{ color:#9aa3ad; font-size:24px; font-weight:700; margin:44px 0 14px; letter-spacing:2px; }
+  .frame{
+    width:1920px; height:1080px; position:relative; overflow:hidden;
+    background:var(--bg); flex:none;
+  }
+  /* ── 口播画面占位 ── */
+  .face-full{ position:absolute; inset:0; background:linear-gradient(135deg,var(--face1),var(--face2)); }
+  .face-sil{ position:absolute; left:50%; top:60%; transform:translate(-50%,-50%);
+    width:560px; height:780px; border-radius:280px 280px 0 0; background:rgba(255,255,255,0.045); }
+  .face-tag{ position:absolute; left:40px; top:32px; color:var(--dim); font-size:24px; letter-spacing:4px; }
+  /* ── 帧1 钩子 ── */
+  .dim-hook{ position:absolute; inset:0; background:rgba(5,9,14,0.66); }
+  .deco-glow{ position:absolute; inset:0;
+    background:radial-gradient(900px 500px at 50% 42%, rgba(63,169,255,0.10), transparent 70%); }
+  .hook-center{ position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; }
+  .eyebrow{ color:var(--accent); font-size:30px; font-weight:700; letter-spacing:10px; margin-bottom:34px; }
+  .hook-big{ font-size:110px; font-weight:900; color:var(--text); line-height:1.28;
+    text-shadow:0 4px 24px rgba(0,0,0,0.85); }
+  .hl{ color:var(--accent); text-shadow:0 0 36px rgba(63,169,255,0.55); }
+  .hook-bar{ width:220px; height:8px; border-radius:4px; background:var(--accent);
+    margin-top:48px; box-shadow:var(--glow); }
+  /* ── 帧2 要点卡 ── */
+  .dim-cards{ position:absolute; inset:0; background:rgba(5,9,14,0.42); }
+  .card{ position:absolute; width:420px; padding:36px 32px; background:var(--panel);
+    border:1px solid var(--border); border-radius:var(--rCard); box-shadow:var(--glow); }
+  .card-en{ color:var(--accent); font-size:22px; font-weight:700; letter-spacing:6px; margin-bottom:12px; }
+  .card-zh{ color:var(--text); font-size:38px; font-weight:800; line-height:1.3; }
+  .card-sub{ color:var(--dim); font-size:24px; margin-top:10px; }
+  .subtitle{ position:absolute; left:0; right:0; bottom:84px; text-align:center;
+    font-size:44px; font-weight:700; color:var(--text);
+    text-shadow:0 3px 14px rgba(0,0,0,0.92), 0 0 3px rgba(0,0,0,0.9); }
+  .hl-sub{ color:var(--accent); text-shadow:0 3px 14px rgba(0,0,0,0.92), 0 0 24px rgba(63,169,255,0.50); }
+  /* ── 帧3 角落人脸 ── */
+  .bg-deco3{ position:absolute; inset:0;
+    background:radial-gradient(1100px 640px at 18% 12%, rgba(63,169,255,0.10), transparent 65%); }
+  .eyebrow3{ position:absolute; left:110px; top:100px; color:var(--accent);
+    font-size:28px; font-weight:700; letter-spacing:8px; }
+  .point-title{ position:absolute; left:110px; top:152px; color:var(--text);
+    font-size:76px; font-weight:900; }
+  .media-panel{ position:absolute; left:110px; top:306px; width:1230px; height:560px;
+    background:rgba(13,20,28,0.60); border:1px solid var(--border); border-radius:var(--rPanel);
+    box-shadow:var(--glow); display:flex; align-items:center; justify-content:center;
+    color:var(--dim); font-size:30px; letter-spacing:4px; }
+  .face-corner{ position:absolute; right:70px; bottom:150px; width:300px; height:300px;
+    border-radius:50%; border:4px solid var(--accent); box-shadow:var(--glow);
+    background:linear-gradient(135deg,var(--face1),var(--face2));
+    display:flex; align-items:center; justify-content:center; overflow:hidden; }
+  .face-corner span{ color:var(--dim); font-size:24px; letter-spacing:2px; }
+</style>
+</head>
+<body>
+
+  <div class="tag">V1 · 钩子大字帧（1920×1080 · 开场前几秒，隐藏底部字幕）</div>
+  <div class="frame">
+    <div class="face-full"></div>
+    <div class="face-sil"></div>
+    <div class="face-tag">口播画面 · 全屏占位</div>
+    <div class="dim-hook"></div>
+    <div class="deco-glow"></div>
+    <div class="hook-center">
+      <div class="eyebrow">EP.01 · AI 底层拆解</div>
+      <div class="hook-big">大模型根本不会</div>
+      <div class="hook-big">「<span class="hl">思考</span>」</div>
+      <div class="hook-bar"></div>
+    </div>
+  </div>
+
+  <div class="tag">V1 · 要点卡帧（人像居中 · 信息卡分列两侧 · 底部字幕含关键词高亮）</div>
+  <div class="frame">
+    <div class="face-full"></div>
+    <div class="face-sil"></div>
+    <div class="face-tag">口播画面（人像居中）</div>
+    <div class="dim-cards"></div>
+    <div class="card" style="left:80px; top:400px;">
+      <div class="card-en">TOKEN</div>
+      <div class="card-zh">一切先切成词元</div>
+      <div class="card-sub">文字 → 数字编号</div>
+    </div>
+    <div class="card" style="left:1420px; top:270px;">
+      <div class="card-en">ATTENTION</div>
+      <div class="card-zh">注意力挑重点</div>
+      <div class="card-sub">给每个词打分</div>
+    </div>
+    <div class="card" style="left:1420px; top:540px;">
+      <div class="card-en">PROBABILITY</div>
+      <div class="card-zh">下一个词的概率题</div>
+      <div class="card-sub">逐词接龙生成</div>
+    </div>
+    <div class="subtitle">它不是在思考 而是在算<span class="hl-sub">【下一个词】</span>的概率</div>
+  </div>
+
+  <div class="tag">V1 · 角落人脸帧（人脸缩右下角 · 主画面让位给素材/图表）</div>
+  <div class="frame">
+    <div class="bg-deco3"></div>
+    <div class="eyebrow3">要点 02 · ATTENTION</div>
+    <div class="point-title">注意力机制：只看<span class="hl">重要的词</span></div>
+    <div class="media-panel">素材 / 图表占位（16:9）</div>
+    <div class="face-corner"><span>口播画面（角落）</span></div>
+    <div class="subtitle">注意力就是给每个词打分 分高的才被<span class="hl-sub">【记住】</span></div>
+  </div>
+
+</body>
+</html>
